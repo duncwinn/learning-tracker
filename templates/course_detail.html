@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block title %}{{ course.title }} - Learning Tracker{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1><i class="fas fa-book text-primary me-2"></i>{{ course.title }}</h1>
+                <p class="text-muted mb-0">{{ course.description }}</p>
+                {% if course.tags %}
+                <div class="mt-2">
+                    {% for tag in course.tags %}
+                    <span class="badge bg-light text-dark me-1">{{ tag }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <div class="text-end">
+                <span class="badge bg-{{ 'success' if course.status == 'completed' else 'warning' if course.status == 'in_progress' else 'secondary' }} fs-6">
+                    {{ course.status.replace('_', ' ').title() }}
+                </span>
+                <div class="mt-2">
+                    <a href="{{ url_for('index') }}" class="btn btn-outline-secondary btn-sm">
+                        <i class="fas fa-arrow-left me-1"></i>Back to Courses
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Update -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Update Status</h5>
+                <form method="POST" action="{{ url_for('update_status', course_id=course.id) }}" class="d-flex gap-2">
+                    <select name="status" class="form-select" style="max-width: 200px;">
+                        <option value="not_started" {% if course.status == 'not_started' %}selected{% endif %}>Not Started</option>
+                        <option value="in_progress" {% if course.status == 'in_progress' %}selected{% endif %}>In Progress</option>
+                        <option value="completed" {% if course.status == 'completed' %}selected{% endif %}>Completed</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Links Section -->
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0"><i class="fas fa-link me-2"></i>Links & References</h5>
+                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addLinkModal">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        {% if course.links %}
+                            {% for link in course.links %}
+                            <div class="border-bottom pb-2 mb-2">
+                                <h6 class="mb-1">{{ link.title }}</h6>
+                                <p class="text-muted small mb-1">{{ link.description }}</p>
+                                <a href="{{ link.url }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-external-link-alt me-1"></i>Visit Link
+                                </a>
+                                <small class="text-muted d-block mt-1">{{ link.added_at[:10] }}</small>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-muted text-center py-3">No links added yet</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notes Section -->
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0"><i class="fas fa-sticky-note me-2"></i>Notes</h5>
+                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addNoteModal">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        {% if course.notes %}
+                            {% for note in course.notes %}
+                            <div class="border-bottom pb-2 mb-2">
+                                <p class="mb-1">{{ note.content }}</p>
+                                <small class="text-muted">{{ note.added_at[:10] }}</small>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-muted text-center py-3">No notes added yet</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Link Modal -->
+<div class="modal fade" id="addLinkModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Link</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST" action="{{ url_for('add_link', course_id=course.id) }}">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="link_title" class="form-label">Link Title *</label>
+                        <input type="text" class="form-control" id="link_title" name="link_title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="link_url" class="form-label">URL *</label>
+                        <input type="url" class="form-control" id="link_url" name="link_url" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="link_description" class="form-label">Description</label>
+                        <textarea class="form-control" id="link_description" name="link_description" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Link</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Add Note Modal -->
+<div class="modal fade" id="addNoteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Note</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST" action="{{ url_for('add_note', course_id=course.id) }}">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="note_content" class="form-label">Note Content *</label>
+                        <textarea class="form-control" id="note_content" name="note_content" rows="4" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Note</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

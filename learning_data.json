@@ -1,0 +1,63 @@
+{
+  "courses": [
+    {
+      "id": 4,
+      "title": "Python Youtube for beginners",
+      "description": "https://www.youtube.com/watch?v=_uQrJ0TkZlc",
+      "status": "in_progress",
+      "links": [
+        {
+          "id": 1,
+          "title": "Python Full Course for Beginners",
+          "url": "https://www.youtube.com/watch?v=_uQrJ0TkZlc",
+          "description": "",
+          "added_at": "2025-09-19T07:11:16.686150"
+        }
+      ],
+      "notes": [
+        {
+          "id": 1,
+          "content": "2:10 2D Lists",
+          "added_at": "2025-09-19T07:11:27.971053"
+        }
+      ],
+      "created_at": "2025-09-19T06:06:39.907542",
+      "updated_at": "2025-09-19T07:11:27.971075"
+    },
+    {
+      "id": 5,
+      "title": "Bayesian Statistics the Fun Way",
+      "description": "Book",
+      "status": "in_progress",
+      "links": [],
+      "notes": [
+        {
+          "id": 1,
+          "content": "At Chapter One: \r\n\r\nCalculus - understanding derivities and integrals. ",
+          "added_at": "2025-09-19T07:51:25.796108"
+        }
+      ],
+      "created_at": "2025-09-19T07:50:55.693158",
+      "updated_at": "2025-09-19T07:51:25.796119"
+    },
+    {
+      "id": 6,
+      "title": "What is JWT",
+      "description": "https://www.youtube.com/watch?v=7Q17ubqLfaM&t=176s",
+      "status": "in_progress",
+      "links": [],
+      "notes": [
+        {
+          "id": 1,
+          "content": "phase 3",
+          "added_at": "2025-09-19T14:59:57.057217"
+        }
+      ],
+      "created_at": "2025-09-19T14:49:11.036933",
+      "updated_at": "2025-09-19T17:37:53.555794"
+    }
+  ],
+  "tags": [
+    "Auth"
+  ]
+}
