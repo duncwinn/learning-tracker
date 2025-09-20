@@ -1,15 +1,22 @@
-# Learning Tracker
+# 🎓 Learning Tracker
 
 A modern web application built with Flask for tracking your learning courses, links, and notes. Perfect for students, professionals, and lifelong learners who want to organize their educational journey.
 
-## Features
+![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)
+![Flask](https://img.shields.io/badge/Flask-2.3.3-green.svg)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.0-purple.svg)
+![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+
+## ✨ Features
 
 - 📚 **Course Management**: Create and manage learning courses with titles, descriptions, and status tracking
+- 🏷️ **Tag System**: Organize courses with custom tags for better categorization
+- 📊 **Progress Tracking**: Three main tabs - ToDo, Doing, Done - for clear progress visualization
 - 🔗 **Link & Reference Storage**: Save important links and references for each course
 - 📝 **Note Taking**: Add and organize notes for each course
-- 📊 **Progress Tracking**: Track course status (Not Started, In Progress, Completed)
 - 🎨 **Modern UI**: Beautiful, responsive design built with Bootstrap 5
 - 📱 **Mobile Friendly**: Works perfectly on desktop, tablet, and mobile devices
+- 🔍 **Smart Filtering**: Filter courses by tags across all status tabs
 
 ## Installation
 
